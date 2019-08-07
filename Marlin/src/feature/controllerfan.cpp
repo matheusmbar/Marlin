@@ -1,9 +1,9 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (C) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
- * Copyright (C) 2011 Camiel Gubbels / Erik van der Zalm
+ * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ void controllerfan_update() {
     // If any of the drivers or the bed are enabled...
     if (X_ENABLE_READ == X_ENABLE_ON || Y_ENABLE_READ == Y_ENABLE_ON || Z_ENABLE_READ == Z_ENABLE_ON
       #if HAS_HEATED_BED
-        || thermalManager.soft_pwm_amount_bed > 0
+        || thermalManager.temp_bed.soft_pwm_amount > 0
       #endif
         #if HAS_X2_ENABLE
           || X2_ENABLE_READ == X_ENABLE_ON
@@ -81,7 +81,7 @@ void controllerfan_update() {
 
     // allows digital or PWM fan output to be used (see M42 handling)
     WRITE(CONTROLLER_FAN_PIN, speed);
-    analogWrite(CONTROLLER_FAN_PIN, speed);
+    analogWrite(pin_t(CONTROLLER_FAN_PIN), speed);
   }
 }
 
